@@ -1,20 +1,20 @@
 {
     "configurations": [
         {
-            "name": "IMU_UART2SPI",
+            "name": "IMU_UART2PWM",
             "includePath": [
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\Core\\Inc",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\Drivers\\CMSIS\\Include",
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Core\\Inc",
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\CMSIS\\Include",
                 "D:\\Keil_v5\\ARM\\ARMCLANG\\include",
                 "D:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux",
                 "D:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux_compat",
                 "D:\\Keil_v5\\ARM\\ARMCLANG\\include\\libcxx",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\MDK-ARM",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\Core\\Src",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2SPI\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\MDK-ARM",
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Core\\Src",
+                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

@@ -46,17 +46,19 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-#define RX_BUF_SIZE 512    // DMA 环形缓冲区大小
+#define RX_BUF_SIZE 1024     // ★ 512 -> 1024，1 ms 轮询下留足余量
 uint8_t rx_buf[RX_BUF_SIZE]; // DMA 循环写入的缓冲区
-uint16_t rx_read_pos = 0;    // 已解码到的位置
+uint16_t rx_read_pos = 0;    // ★ 已解码到的位置（上次解码结束处）
 
-imu_data_t g_imu = {};                 // 最新解出的一帧 IMU 数据
+volatile uint32_t g_rx_lap = 0;     // ★ 环形缓冲走满一圈的次数
+static uint32_t s_total_w_prev = 0; // ★ 上次轮询的绝对写入位置，用于发现溢出
+
+imu_data_t g_imu = {};            // 最新解出的一帧 IMU 数据
 volatile uint8_t g_imu_ready = 0; // 新帧标志（1 = 有）
 // LED状态
-uint8_t LED_R_state = 0; 
-uint8_t LED_G_state = 1; 
-uint8_t LED_B_state = 0; 
-
+uint8_t LED_R_state = 0;
+uint8_t LED_G_state = 1;
+uint8_t LED_B_state = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -173,6 +175,16 @@ void SystemClock_Config(void)
 /* USER CODE BEGIN 4 */
 imu_data_t imu_data = {};
 uint16_t rx_ok_n = 0;
+
+/* ★ 循环模式下 DMA 每走满一整圈触发一次 */
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+  if (huart->Instance == USART1)
+  {
+    g_rx_lap++;
+  }
+}
+
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if (htim->Instance == TIM2)
@@ -201,10 +213,38 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   // 定时器3中断回调函数：每 1ms 取一次 DMA 新收到的字节，拼帧并解码
   if (htim->Instance == TIM3)
   {
-    imu_decode_byte(rx_buf, &rx_read_pos, RX_BUF_SIZE, &imu_data);
-    uint16_t duty = (uint16_t)((imu_data.rpy[2] + 180) * 100);
-    //设置PWM输出
-    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, duty);
+
+    uint32_t lap;
+    uint16_t wpos;
+    uint32_t total_w;
+
+    /* 1) 取 DMA 写指针；和 lap 一起读，避免刚好绕圈时读数不一致 */
+    do
+    {
+      lap = g_rx_lap;
+      wpos = imu_dma_write_pos((uint16_t)__HAL_DMA_GET_COUNTER(&hdma_usart1_rx),
+                               RX_BUF_SIZE);
+    } while (lap != g_rx_lap);
+
+    /* 2) 溢出检测：两轮之间 DMA 前进超过一整圈，说明未读数据已被覆盖 */
+    total_w = lap * (uint32_t)RX_BUF_SIZE + wpos;
+    if ((total_w - s_total_w_prev) > (uint32_t)RX_BUF_SIZE)
+    {
+      g_imu_rx_stat.overrun++;
+      rx_read_pos = wpos; /* 旧数据不可信，从当前写指针重新同步 */
+    }
+    s_total_w_prev = total_w;
+
+    /* 3) 只解码 [rx_read_pos, wpos) 这段新数据，窗口内所有整帧一次解完 */
+    if (imu_decode_poll(rx_buf, RX_BUF_SIZE, &rx_read_pos, wpos, &imu_data) > 0)
+    {
+      __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1,
+                            (uint16_t)((imu_data.rpy[0] + 180.0f) * 100.0f));
+      __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2,
+                            (uint16_t)((imu_data.rpy[1] + 180.0f) * 100.0f));
+      __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3,
+                            (uint16_t)((imu_data.rpy[2] + 180.0f) * 100.0f));
+    }
   }
 }
 /* USER CODE END 4 */

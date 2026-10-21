@@ -1,7 +1,7 @@
 Dependencies for Project 'IMU_UART2PWM', Target 'IMU_UART2PWM': (DO NOT MODIFY !)
 CompilerVersion: 6160000::V6.16::ARMCLANG
 F (startup_stm32f103xb.s)(0x6AD767EF)(--target=arm-arm-none-eabi -mcpu=cortex-m3 -masm=auto -c-gdwarf-4-I./RTE/_IMU_UART2PWM-ID:/Users/admin/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-ID:/Users/admin/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/Device/Include-Wa,armasm,--pd,"__UVISION_VERSION SETA 536" -Wa,armasm,--pd,"_RTE_ SETA 1" -Wa,armasm,--pd,"STM32F10X_MD SETA 1" -Wa,armasm,--pd,"_RTE_ SETA 1"-o imu_uart2pwm/startup_stm32f103xb.o)
-F (../Core/Src/main.c)(0x6AD763BA)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I./RTE/_IMU_UART2PWM-ID:/Users/admin/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-ID:/Users/admin/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/Device/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o imu_uart2pwm/main.o -MD)
+F (../Core/Src/main.c)(0x6AD81CCC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I./RTE/_IMU_UART2PWM-ID:/Users/admin/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-ID:/Users/admin/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/Device/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o imu_uart2pwm/main.o -MD)
 I (..\Core\Inc\main.h)(0x6ACFA1D2)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6AC8E7E9)
 I (..\Core\Inc\stm32f1xx_hal_conf.h)(0x6AC8EDFA)
@@ -34,9 +34,9 @@ I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6AC8E7E9)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6AC8E7E9)
 I (..\Core\Inc\dma.h)(0x6AC8E8D4)
 I (..\Core\Inc\tim.h)(0x6AD75B31)
-I (..\Core\Inc\usart.h)(0x6AC8E7EE)
+I (..\Core\Inc\usart.h)(0x6AD81C44)
 I (..\Core\Inc\gpio.h)(0x6AC8E7ED)
-I (..\Core\Inc\imu_decode.h)(0x6AD736E1)
+I (..\Core\Inc\imu_decode.h)(0x6AD81C64)
 F (../Core/Src/gpio.c)(0x6AD75B2F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I./RTE/_IMU_UART2PWM-ID:/Users/admin/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-ID:/Users/admin/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/Device/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o imu_uart2pwm/gpio.o -MD)
 I (..\Core\Inc\gpio.h)(0x6AC8E7ED)
 I (..\Core\Inc\main.h)(0x6ACFA1D2)
@@ -134,7 +134,7 @@ I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6AC8E7E9)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6AC8E7E9)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6AC8E7E9)
 F (../Core/Src/usart.c)(0x6AD766C4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I./RTE/_IMU_UART2PWM-ID:/Users/admin/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-ID:/Users/admin/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/Device/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o imu_uart2pwm/usart.o -MD)
-I (..\Core\Inc\usart.h)(0x6AC8E7EE)
+I (..\Core\Inc\usart.h)(0x6AD81C44)
 I (..\Core\Inc\main.h)(0x6ACFA1D2)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal.h)(0x6AC8E7E9)
 I (..\Core\Inc\stm32f1xx_hal_conf.h)(0x6AC8EDFA)
@@ -260,8 +260,8 @@ I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_pwr.h)(0x6AC8E7E9)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim.h)(0x6AC8E7E9)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_tim_ex.h)(0x6AC8E7E9)
 I (..\Drivers\STM32F1xx_HAL_Driver\Inc\stm32f1xx_hal_uart.h)(0x6AC8E7E9)
-F (..\Core\Src\imu_decode.c)(0x6AD73925)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I./RTE/_IMU_UART2PWM-ID:/Users/admin/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-ID:/Users/admin/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/Device/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o imu_uart2pwm/imu_decode.o -MD)
-I (..\Core\Inc\imu_decode.h)(0x6AD736E1)
+F (..\Core\Src\imu_decode.c)(0x6AD81C85)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m3 -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -I ../Core/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc -I ../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I ../Drivers/CMSIS/Include-I./RTE/_IMU_UART2PWM-ID:/Users/admin/AppData/Local/Arm/Packs/ARM/CMSIS/5.8.0/CMSIS/Core/Include-ID:/Users/admin/AppData/Local/Arm/Packs/Keil/STM32F1xx_DFP/2.3.0/Device/Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32F10X_MD -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F103xB-o imu_uart2pwm/imu_decode.o -MD)
+I (..\Core\Inc\imu_decode.h)(0x6AD81C64)
 I (D:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x603507D0)
 I (..\Core\Inc\crc.h)(0x6AD76830)
 I (..\Core\Inc\main.h)(0x6ACFA1D2)

@@ -108,12 +108,15 @@ int main(void)
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_Base_Start_IT(&htim2); // 开启定时器2
-  HAL_TIM_Base_Start_IT(&htim3); // 开启定时器3
   // 开启PWM输出
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_2);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_3);
+
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_3);
-  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_4);
+
   // 启动接收
   if (HAL_UART_Receive_DMA(&huart1, rx_buf, RX_BUF_SIZE) != HAL_OK)
   {
@@ -128,7 +131,6 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    
   }
   /* USER CODE END 3 */
 }
@@ -176,7 +178,7 @@ void SystemClock_Config(void)
 imu_data_t imu_data = {};
 uint16_t rx_ok_n = 0;
 
-/* ★ 循环模式下 DMA 每走满一整圈触发一次 */
+// 循环模式下 DMA 每走满一整圈触发一次 
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
   if (huart->Instance == USART1)
@@ -184,67 +186,82 @@ void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
     g_rx_lap++;
   }
 }
+// LED处理函数
+void LED_Process(){
+  rx_ok_n = get_receive_ok_count();
+  clear_receive_count();
+  if (LED_B_state == 0)
+  {
+    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_B_Pin, GPIO_PIN_RESET);
+    LED_B_state = 1;
+  }
+  else
+  {
+    HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_B_Pin, GPIO_PIN_SET);
+    LED_B_state = 0;
+  }
+  if (LED_G_state == 0)
+  {
+    HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_RESET);
+    LED_G_state = 1;
+  }
+  else
+  {
+    HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);
+    LED_G_state = 0;
+  }
+}
+//IMU 数据转化到PWM
+void IMU2PWM(){
+  uint32_t lap;
+  uint16_t wpos;
+  uint32_t total_w;
 
+  // 取 DMA 写指针；和 lap 一起读，避免刚好绕圈时读数不一致
+  do
+  {
+    lap = g_rx_lap;
+    wpos = imu_dma_write_pos((uint16_t)__HAL_DMA_GET_COUNTER(&hdma_usart1_rx),
+                             RX_BUF_SIZE);
+  } while (lap != g_rx_lap);
+
+  // 溢出检测：两轮之间 DMA 前进超过一整圈，说明未读数据已被覆盖
+  total_w = lap * (uint32_t)RX_BUF_SIZE + wpos;
+  if ((total_w - s_total_w_prev) > (uint32_t)RX_BUF_SIZE)
+  {
+    g_imu_rx_stat.overrun++;
+    rx_read_pos = wpos; //旧数据不可信，从当前写指针重新同步
+  }
+  s_total_w_prev = total_w;
+
+  // 只解码 [rx_read_pos, wpos) 这段新数据，窗口内所有整帧一次解完
+  if (imu_decode_poll(rx_buf, RX_BUF_SIZE, &rx_read_pos, wpos, &imu_data) > 0)
+  {
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1,
+                          (uint16_t)((imu_data.gyr[0] + 2000.0f) * (36000.0f / 2000.0f)));
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2,
+                          (uint16_t)((imu_data.gyr[1] + 2000.0f) * (36000.0f / 2000.0f)));
+    __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3,
+                          (uint16_t)((imu_data.gyr[2] + 2000.0f) * (36000.0f / 2000.0f)));
+    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1,
+                          (uint16_t)((imu_data.acc[0] + 16.0f) * (36000.0f / 32.0f)));
+    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2,
+                          (uint16_t)((imu_data.acc[1] + 16.0f) * (36000.0f / 32.0f)));
+    __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3,
+                          (uint16_t)((imu_data.acc[2] + 16.0f) * (36000.0f / 32.0f)));
+  }
+}
+// 定时器2计数
+uint16_t tim2_count = 0;
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
   if (htim->Instance == TIM2)
   {
-    rx_ok_n = get_receive_ok_count();
-    clear_receive_count();  
-    if (LED_R_state == 0){
-      HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_RESET);
-      LED_R_state = 1;
+    tim2_count = (tim2_count + 1) % 1000;
+    if (tim2_count == 0){
+      LED_Process();
     }
-    else{
-      HAL_GPIO_WritePin(LED_R_GPIO_Port, LED_R_Pin, GPIO_PIN_SET);
-      LED_R_state = 0;
-    }
-    if (LED_G_state == 0)
-    {
-      HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_RESET);
-      LED_G_state = 1;
-    }
-    else
-    {
-      HAL_GPIO_WritePin(LED_G_GPIO_Port, LED_G_Pin, GPIO_PIN_SET);
-      LED_G_state = 0;
-    }
-  }
-  // 定时器3中断回调函数：每 1ms 取一次 DMA 新收到的字节，拼帧并解码
-  if (htim->Instance == TIM3)
-  {
-
-    uint32_t lap;
-    uint16_t wpos;
-    uint32_t total_w;
-
-    /* 1) 取 DMA 写指针；和 lap 一起读，避免刚好绕圈时读数不一致 */
-    do
-    {
-      lap = g_rx_lap;
-      wpos = imu_dma_write_pos((uint16_t)__HAL_DMA_GET_COUNTER(&hdma_usart1_rx),
-                               RX_BUF_SIZE);
-    } while (lap != g_rx_lap);
-
-    /* 2) 溢出检测：两轮之间 DMA 前进超过一整圈，说明未读数据已被覆盖 */
-    total_w = lap * (uint32_t)RX_BUF_SIZE + wpos;
-    if ((total_w - s_total_w_prev) > (uint32_t)RX_BUF_SIZE)
-    {
-      g_imu_rx_stat.overrun++;
-      rx_read_pos = wpos; /* 旧数据不可信，从当前写指针重新同步 */
-    }
-    s_total_w_prev = total_w;
-
-    /* 3) 只解码 [rx_read_pos, wpos) 这段新数据，窗口内所有整帧一次解完 */
-    if (imu_decode_poll(rx_buf, RX_BUF_SIZE, &rx_read_pos, wpos, &imu_data) > 0)
-    {
-      __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1,
-                            (uint16_t)((imu_data.rpy[0] + 180.0f) * 100.0f));
-      __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2,
-                            (uint16_t)((imu_data.rpy[1] + 180.0f) * 100.0f));
-      __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3,
-                            (uint16_t)((imu_data.rpy[2] + 180.0f) * 100.0f));
-    }
+    IMU2PWM();
   }
 }
 /* USER CODE END 4 */

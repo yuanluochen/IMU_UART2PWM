@@ -1,5 +1,7 @@
 --cpu Cortex-M3
 "imu_uart2pwm\startup_stm32f103xb.o"
+"imu_uart2pwm\crc.o"
+"imu_uart2pwm\imu_decode.o"
 "imu_uart2pwm\main.o"
 "imu_uart2pwm\gpio.o"
 "imu_uart2pwm\dma.o"
@@ -7,8 +9,6 @@
 "imu_uart2pwm\usart.o"
 "imu_uart2pwm\stm32f1xx_it.o"
 "imu_uart2pwm\stm32f1xx_hal_msp.o"
-"imu_uart2pwm\crc.o"
-"imu_uart2pwm\imu_decode.o"
 "imu_uart2pwm\stm32f1xx_hal_gpio_ex.o"
 "imu_uart2pwm\stm32f1xx_hal_tim.o"
 "imu_uart2pwm\stm32f1xx_hal_tim_ex.o"

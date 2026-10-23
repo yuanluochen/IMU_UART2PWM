@@ -3,18 +3,18 @@
         {
             "name": "IMU_UART2PWM",
             "includePath": [
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Core\\Inc",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\CMSIS\\Include",
-                "D:\\Keil_v5\\ARM\\ARMCLANG\\include",
-                "D:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux",
-                "D:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux_compat",
-                "D:\\Keil_v5\\ARM\\ARMCLANG\\include\\libcxx",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\MDK-ARM",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Core\\Src",
-                "d:\\Document\\Scientific research\\IMU_Project\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\Core\\Inc",
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\Drivers\\CMSIS\\Include",
+                "C:\\Keil_v5\\ARM\\ARMCLANG\\include",
+                "C:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux",
+                "C:\\Keil_v5\\ARM\\ARMCLANG\\include\\arm_linux_compat",
+                "C:\\Keil_v5\\ARM\\ARMCLANG\\include\\libcxx",
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\MDK-ARM",
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\Core\\Src",
+                "c:\\Users\\sia429\\Desktop\\products-master\\IMU_UART2PWM\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

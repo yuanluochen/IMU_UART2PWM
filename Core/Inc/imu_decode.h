@@ -14,13 +14,16 @@
 #define __IMU_DECODE_H__
 
 #include <stdint.h>
+#define MAX_ACC 156.91f
+#define MAX_GYR 34.907f
+#define MAX_RPY 180.0f
 
 // IMU 数据
 typedef struct __attribute__((packed))
 {
   float acc[3]; // 加速度，单位 m/s²
-  float gyr[3]; // 角速度，单位 deg/s
-  float rpy[3]; // 欧拉角，单位 deg +-180deg
+  float gyr[3]; // 角速度，单位 rad/s
+  float rpy[3]; // 欧拉角，单位 deg +-180degree
 } imu_data_t;
 
 // H83数据

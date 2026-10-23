@@ -11,6 +11,15 @@
 #define MAX_PAYLOAD 506 /* 协议：一帧数据最多 506 字节 */
 #define FRAME_MAX (HEADER_SIZE + MAX_PAYLOAD)
 
+static float limit_amp(float value, float max){
+  if (value > max)
+    return max;
+  else if (value < -max)
+    return -max;
+  else
+    return value;
+}
+
 /* 把环形缓冲里的一帧“拉直”到这里，后面__attribute是为了强制对其到四字节*/
 static uint8_t s_frame[FRAME_MAX] __attribute__((aligned(4)));
 
@@ -130,9 +139,14 @@ uint16_t imu_decode_poll(const uint8_t *buf, uint16_t buf_len,
     if (payload_len == sizeof(H83_data_t))
     {
       const frame_data_t *fd = (const frame_data_t *)s_frame;
-      if (fd->h83_data.tag == H83_TAG)
+      if (fd->h83_data.tag == H83_TAG && fd->h83_data.data_bitmap == H83_bitmap)
       {
         *out = fd->h83_data.imu_data;
+        for (int i = 0; i < 3; i++){
+          out->acc[i] = limit_amp(out->acc[i], MAX_ACC);
+          out->gyr[i] = limit_amp(out->gyr[i], MAX_GYR);
+          out->rpy[i] = limit_amp(out->rpy[i], MAX_RPY);
+        }
         frames++;
         rx_ok_count++;
         g_imu_rx_stat.last_frame_start = r;

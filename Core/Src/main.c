@@ -175,7 +175,7 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-imu_data_t imu_data = {};
+imu_data_t imu_data = {0};
 uint16_t rx_ok_n = 0;
 
 // 循环模式下 DMA 每走满一整圈触发一次 
@@ -238,17 +238,17 @@ void IMU2PWM(){
   if (imu_decode_poll(rx_buf, RX_BUF_SIZE, &rx_read_pos, wpos, &imu_data) > 0)
   {
     __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1,
-                          (uint16_t)((imu_data.gyr[0] + 2000.0f) * (36000.0f / 2000.0f)));
+                          (uint16_t)((imu_data.gyr[0] + MAX_GYR) * ((htim3.Init.Period + 1) / (2 * MAX_GYR))));
     __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_2,
-                          (uint16_t)((imu_data.gyr[1] + 2000.0f) * (36000.0f / 2000.0f)));
+                          (uint16_t)((imu_data.gyr[1] + MAX_GYR) * ((htim3.Init.Period + 1) / (2 * MAX_GYR))));
     __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_3,
-                          (uint16_t)((imu_data.gyr[2] + 2000.0f) * (36000.0f / 2000.0f)));
+                          (uint16_t)((imu_data.gyr[2] + MAX_GYR) * ((htim3.Init.Period + 1) / (2 * MAX_GYR))));
     __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1,
-                          (uint16_t)((imu_data.acc[0] + 16.0f) * (36000.0f / 32.0f)));
+                          (uint16_t)((imu_data.acc[0] + MAX_ACC) * ((htim4.Init.Period + 1) / (2 * MAX_ACC))));
     __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_2,
-                          (uint16_t)((imu_data.acc[1] + 16.0f) * (36000.0f / 32.0f)));
+                          (uint16_t)((imu_data.acc[1] + MAX_ACC) * ((htim4.Init.Period + 1) / (2 * MAX_ACC))));
     __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_3,
-                          (uint16_t)((imu_data.acc[2] + 16.0f) * (36000.0f / 32.0f)));
+                          (uint16_t)((imu_data.acc[2] + MAX_ACC) * ((htim4.Init.Period + 1) / (2 * MAX_ACC))));
   }
 }
 // 定时器2计数

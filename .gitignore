@@ -1,0 +1,42 @@
+# ---------- Keil MDK / ARM 编译产物 ----------
+*.o
+*.d
+*.crf
+*.dep
+*.lnp
+*.map
+*.sct
+*.lst
+*.axf
+*.elf
+*.hex
+*.bin
+*.iex
+*.htm
+*.build_log.htm
+
+# 编译输出目录
+MDK-ARM/IMU_UART2PWM/
+MDK-ARM/Objects/
+MDK-ARM/Listings/
+MDK-ARM/RTE/
+MDK-ARM/DebugConfig/
+
+# ---------- Keil 用户/会话文件 ----------
+*.uvguix.*
+*.uvoptx
+*.scvd
+JLinkLog.txt
+JLinkSettings.ini
+*.bak
+*.__i
+*._ii
+
+# ---------- VS Code ----------
+.vscode/
+**/.vscode/
+
+# ---------- 操作系统 ----------
+Thumbs.db
+Desktop.ini
+.DS_Store

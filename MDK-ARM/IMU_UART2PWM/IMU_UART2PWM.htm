@@ -3,7 +3,7 @@
 <title>Static Call Graph - [IMU_UART2PWM\IMU_UART2PWM.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image IMU_UART2PWM\IMU_UART2PWM.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Fri Oct 23 13:04:39 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6160001: Last Updated: Sat Oct 24 19:22:43 2026
 <BR><P>
 <H3>Maximum Stack Usage =        176 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -797,7 +797,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32f103xb.o(RESET)
 </UL>
-<P><STRONG><a name="[82]"></a>IMU2PWM</STRONG> (Thumb, 356 bytes, Stack size 40 bytes, main.o(.text.IMU2PWM))
+<P><STRONG><a name="[82]"></a>IMU2PWM</STRONG> (Thumb, 350 bytes, Stack size 40 bytes, main.o(.text.IMU2PWM))
 <BR><BR>[Stack]<UL><LI>Max Depth = 144<LI>Call Chain = IMU2PWM &rArr; imu_decode_poll &rArr; frame_crc_ok &rArr; crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[8a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;imu_dma_write_pos
@@ -996,7 +996,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[81]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Process
 </UL>
 
-<P><STRONG><a name="[8b]"></a>imu_decode_poll</STRONG> (Thumb, 512 bytes, Stack size 72 bytes, imu_decode.o(.text.imu_decode_poll))
+<P><STRONG><a name="[8b]"></a>imu_decode_poll</STRONG> (Thumb, 508 bytes, Stack size 72 bytes, imu_decode.o(.text.imu_decode_poll))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = imu_decode_poll &rArr; frame_crc_ok &rArr; crc16
 </UL>
 <BR>[Calls]<UL><LI><a href="#[a7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ring_read

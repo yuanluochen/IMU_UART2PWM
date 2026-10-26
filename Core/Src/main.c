@@ -53,7 +53,7 @@ uint16_t rx_read_pos = 0;    // ★ 已解码到的位置（上次解码结束�
 volatile uint32_t g_rx_lap = 0;     // ★ 环形缓冲走满一圈的次数
 static uint32_t s_total_w_prev = 0; // ★ 上次轮询的绝对写入位置，用于发现溢出
 
-imu_data_t g_imu = {};            // 最新解出的一帧 IMU 数据
+imu_data_t g_imu = {0};            // 最新解出的一帧 IMU 数据
 volatile uint8_t g_imu_ready = 0; // 新帧标志（1 = 有）
 // LED状态
 uint8_t LED_R_state = 0;

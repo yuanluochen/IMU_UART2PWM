@@ -14,11 +14,11 @@
 #define __IMU_DECODE_H__
 
 #include <stdint.h>
-#define MAX_ACC 156.91f
-#define MAX_GYR 34.907f
+#define MAX_ACC 70.0f
+#define MAX_GYR 20.0f
 #define MAX_RPY 180.0f
 
-// IMU 数据
+// IMU 
 typedef struct __attribute__((packed))
 {
   float acc[3]; // 加速度，单位 m/s²
